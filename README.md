@@ -21,6 +21,8 @@ Beta/PoC URL -> https://000719658.deployed.codepen.website
 - [Python language server](https://microsoft.github.io/language-server-protocol/)
 - [Lsp](https://microsoft.github.io/language-server-protocol/)
 - [OmniSharp](https://github.com/OmniSharp/csharp-language-server-protocol)
+- [Monaco Editor](https://microsoft.github.io/monaco-editor/)
+- [AlibreScript VS Code Extension](https://marketplace.visualstudio.com/items?itemName=stephensmitchell.alibrescript)
 
 # Roadmap/planned features and improvements:
 - Autocomplete and documentation improvements

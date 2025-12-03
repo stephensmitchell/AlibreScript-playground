@@ -12,7 +12,7 @@ Beta/PoC release is hosted on [CodePen](https://codepen.io/) custom domain and p
 
 Beta/PoC URL -> https://000719658.deployed.codepen.website
 
-# Known Issues/Limitations:
+## Known Issues/Limitations:
 - AlibreScript Playground is made with a toolkit for building playground UIs and apps. Playground toolkit is part of a broader effort in development. [CAD DDE](https://youtu.be/a0cSK_ClNW4) is a desktop implementation and AlibreScript Playground is a web implementation. Integration with a host application is required for true type inference, object model access and general communication between the editor (AlibreScript Playground) and the host (Alibre Design).
 - Example and template code included in the application may not be compatible with Alibre Design’s Alibre Script addon. I use AlibreScript with Python 3 and IronPython 2.7 (IronPython 3.0) and suggest using an LLM for converting to and from Python versions and IronPython engines.
   
@@ -24,14 +24,14 @@ Beta/PoC URL -> https://000719658.deployed.codepen.website
 - [Monaco Editor](https://microsoft.github.io/monaco-editor/)
 - [AlibreScript VS Code Extension](https://marketplace.visualstudio.com/items?itemName=stephensmitchell.alibrescript)
 
-# Roadmap/planned features and improvements:
+## Roadmap/planned features and improvements:
 - Autocomplete and documentation improvements
 - AlibreScript API auditing
 - AlibreX API
 - File management using local storage
 - AI features
   
-# Contact/Support/Funding:
+## Contact/Support/Funding:
 - Feature requests, issues and questions contact via Discord or GitHub Issues
 - Free use, tip/donate and usage licenses will be available
 - AlibreScript Playground is closed source

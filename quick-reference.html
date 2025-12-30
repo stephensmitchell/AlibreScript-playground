@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//codepen.io/CodePenTemplates/pen/GNoNGy.css" />
+    <link rel="stylesheet" href="//codepen.io/CodePenTemplates/pen/XNXpgM.css" />
+  </head>
+  <body>
+    <section class="markdown-body">
+    <h1 id="alibrescript-quick-reference">AlibreScript Quick Reference</h1>
+<p>A comprehensive reference guide for the AlibreScript API.</p>
+<hr>
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<table>
+<thead>
+<tr>
+<th>Shortcut</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Ctrl+Space</code></td>
+<td>Trigger autocomplete</td>
+</tr>
+<tr>
+<td><code>Ctrl+Shift+C</code></td>
+<td>Clear editor</td>
+</tr>
+<tr>
+<td><code>F1</code></td>
+<td>Command palette</td>
+</tr>
+<tr>
+<td>Right-click</td>
+<td>Context menu with templates</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<pre><code class="language-python">from AlibreScript <span class="hljs-built_in">import</span> *
+
+<span class="hljs-comment"># Get the currently open part</span>
+<span class="hljs-attr">MyPart</span> = CurrentPart()
+
+<span class="hljs-comment"># Get the currently open assembly</span>
+<span class="hljs-attr">MyAssembly</span> = CurrentAssembly()
+</code></pre>
+<hr>
+<h2 id="creating-parts">Creating Parts</h2>
+<pre><code class="language-python"><span class="hljs-comment"># Create new part</span>
+<span class="hljs-attr">NewPart</span> = Part(<span class="hljs-string">&#x27;My New Part&#x27;</span>)
+
+<span class="hljs-comment"># Open existing part</span>
+<span class="hljs-attr">ExistingPart</span> = Part(<span class="hljs-string">&#x27;C:\\Parts&#x27;</span>, <span class="hljs-string">&#x27;MyPart&#x27;</span>)
+</code></pre>
+<hr>
+<h2 id="reference-planes">Reference Planes</h2>
+<p>Every part has built-in reference geometry:</p>
+<pre><code class="language-python">MyPart.XYPlane    <span class="hljs-meta"># Front plane</span>
+MyPart.YZPlane    <span class="hljs-meta"># Right plane</span>
+MyPart.ZXPlane    <span class="hljs-meta"># Top plane</span>
+
+MyPart.XAxis      <span class="hljs-meta"># X reference axis</span>
+MyPart.YAxis      <span class="hljs-meta"># Y reference axis</span>
+MyPart.ZAxis      <span class="hljs-meta"># Z reference axis</span>
+</code></pre>
+<hr>
+<h2 id="sketches---2d-geometry">Sketches - 2D Geometry</h2>
+<h3 id="creating-a-sketch">Creating a Sketch</h3>
+<pre><code class="language-python"><span class="hljs-comment"># Create a sketch on a plane</span>
+<span class="hljs-attr">sketch</span> = MyPart.AddSketch(<span class="hljs-string">&#x27;MySketch&#x27;</span>, MyPart.XYPlane)
+</code></pre>
+<h3 id="adding-geometry">Adding Geometry</h3>
+<pre><code class="language-python"><span class="hljs-comment"># Circle: centerX, centerY, diameter, isReference</span>
+<span class="hljs-attribute">sketch</span>.AddCircle(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>, False)
+
+<span class="hljs-comment"># Rectangle: x1, y1, x2, y2, isReference</span>
+<span class="hljs-attribute">sketch</span>.AddRectangle(-<span class="hljs-number">25</span>, -<span class="hljs-number">25</span>, <span class="hljs-number">25</span>, <span class="hljs-number">25</span>, False)
+
+<span class="hljs-comment"># Line: x1, y1, x2, y2, isReference</span>
+<span class="hljs-attribute">sketch</span>.AddLine(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">50</span>, <span class="hljs-number">50</span>, False)
+
+<span class="hljs-comment"># Arc: centerX, centerY, startX, startY, endX, endY</span>
+<span class="hljs-attribute">sketch</span>.AddArcCenterStartEnd(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">25</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">25</span>)
+
+<span class="hljs-comment"># Polygon: centerX, centerY, diameter, sides, isReference</span>
+<span class="hljs-attribute">sketch</span>.AddPolygon(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">40</span>, <span class="hljs-number">6</span>, False)  # Hexagon
+</code></pre>
+<hr>
+<h2 id="features---3d-operations">Features - 3D Operations</h2>
+<h3 id="extrude">Extrude</h3>
+<pre><code class="language-python"><span class="hljs-comment"># Extrude Boss (adds material)</span>
+<span class="hljs-attr">feature</span> = MyPart.AddExtrudeBoss(<span class="hljs-string">&#x27;Extrude1&#x27;</span>, sketch, <span class="hljs-number">25</span>, <span class="hljs-literal">False</span>)
+
+<span class="hljs-comment"># Extrude Cut (removes material)</span>
+<span class="hljs-attr">feature</span> = MyPart.AddExtrudeCut(<span class="hljs-string">&#x27;Cut1&#x27;</span>, sketch, <span class="hljs-number">10</span>, <span class="hljs-literal">False</span>)
+</code></pre>
+<h3 id="revolve">Revolve</h3>
+<pre><code class="language-python"><span class="hljs-comment"># Revolve around an axis</span>
+<span class="hljs-attr">feature</span> = MyPart.AddRevolveBoss(<span class="hljs-string">&#x27;Revolve1&#x27;</span>, sketch, MyPart.YAxis, <span class="hljs-number">360</span>)
+</code></pre>
+<h3 id="fillet--chamfer">Fillet &amp; Chamfer</h3>
+<pre><code class="language-python"><span class="hljs-attribute">edge</span> = MyPart.GetEdge(&#x27;Edge&lt;<span class="hljs-number">1</span>&gt;&#x27;)
+
+<span class="hljs-comment"># Fillet: edge, radius, tangentPropagate</span>
+<span class="hljs-attribute">MyPart</span>.AddFillet(&#x27;Fillet<span class="hljs-number">1</span>&#x27;, edge, <span class="hljs-number">5</span>, True)
+
+<span class="hljs-comment"># Chamfer: edge, distance, tangentPropagate</span>
+<span class="hljs-attribute">MyPart</span>.AddChamfer(&#x27;Chamfer<span class="hljs-number">1</span>&#x27;, edge, <span class="hljs-number">3</span>, True)
+</code></pre>
+<hr>
+<h2 id="reference-geometry">Reference Geometry</h2>
+<pre><code class="language-python"><span class="hljs-comment"># Offset plane from existing plane</span>
+<span class="hljs-attr">plane</span> = MyPart.AddPlane(<span class="hljs-string">&#x27;OffsetPlane&#x27;</span>, MyPart.XYPlane, <span class="hljs-number">50</span>)
+
+<span class="hljs-comment"># Point at coordinates</span>
+<span class="hljs-attr">point</span> = MyPart.AddPoint(<span class="hljs-string">&#x27;Point1&#x27;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>)
+
+<span class="hljs-comment"># Axis from two points</span>
+<span class="hljs-attr">axis</span> = MyPart.AddAxis(<span class="hljs-string">&#x27;Axis1&#x27;</span>, [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>], [<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">100</span>])
+</code></pre>
+<hr>
+<h2 id="parameters">Parameters</h2>
+<pre><code class="language-python"><span class="hljs-meta"># Add parameters</span>
+width = MyPart.AddParameter(<span class="hljs-string">&#x27;Width&#x27;</span>, ParameterTypes.<span class="hljs-built_in">Distance</span>, <span class="hljs-number">100</span>)
+height = MyPart.AddParameter(<span class="hljs-string">&#x27;Height&#x27;</span>, ParameterTypes.<span class="hljs-built_in">Distance</span>, <span class="hljs-number">50</span>)
+
+<span class="hljs-meta"># Get existing parameter</span>
+<span class="hljs-built_in">param</span> = MyPart.GetParameter(<span class="hljs-string">&#x27;Width&#x27;</span>)
+print(<span class="hljs-built_in">param</span>.Value)
+</code></pre>
+<hr>
+<h2 id="topology-access">Topology Access</h2>
+<h3 id="get-all-elements">Get All Elements</h3>
+<pre><code class="language-python"><span class="hljs-attr">faces</span> = MyPart.GetFaces()
+<span class="hljs-attr">edges</span> = MyPart.GetEdges()
+<span class="hljs-attr">vertices</span> = MyPart.GetVertices()
+</code></pre>
+<h3 id="get-by-name">Get by Name</h3>
+<pre><code class="language-python"><span class="hljs-attr">face</span> = MyPart.GetFace(<span class="hljs-string">&#x27;Face&lt;1&gt;&#x27;</span>)
+<span class="hljs-attr">edge</span> = MyPart.GetEdge(<span class="hljs-string">&#x27;Edge&lt;1&gt;&#x27;</span>)
+</code></pre>
+<h3 id="iterate">Iterate</h3>
+<pre><code class="language-python"><span class="hljs-keyword">for</span> <span class="hljs-built_in">face</span> <span class="hljs-built_in">in</span> MyPart.GetFaces():
+    print(<span class="hljs-built_in">face</span>.<span class="hljs-built_in">Name</span>)
+</code></pre>
+<hr>
+<h2 id="user-dialogs">User Dialogs</h2>
+<h3 id="simple-dialogs">Simple Dialogs</h3>
+<pre><code class="language-python"><span class="hljs-meta"># Information dialog</span>
+Windows.InfoDialog(<span class="hljs-string">&#x27;Operation complete!&#x27;</span>, <span class="hljs-string">&#x27;Info&#x27;</span>)
+
+<span class="hljs-meta"># Error dialog</span>
+Windows.ErrorDialog(<span class="hljs-string">&#x27;Something went wrong&#x27;</span>, <span class="hljs-string">&#x27;Error&#x27;</span>)
+
+<span class="hljs-meta"># Question dialog (returns True/False)</span>
+<span class="hljs-keyword">if</span> Windows.QuestionDialog(<span class="hljs-string">&#x27;Continue?&#x27;</span>, <span class="hljs-string">&#x27;Confirm&#x27;</span>):
+    print(<span class="hljs-string">&#x27;User clicked Yes&#x27;</span>)
+</code></pre>
+<h3 id="input-dialog">Input Dialog</h3>
+<pre><code class="language-python">inputs = [
+    [<span class="hljs-string">&#x27;Width&#x27;</span>, WindowsInputTypes.Float, <span class="hljs-number">100</span>],
+    [<span class="hljs-string">&#x27;Height&#x27;</span>, WindowsInputTypes.Float, <span class="hljs-number">50</span>],
+    [<span class="hljs-string">&#x27;Name&#x27;</span>, WindowsInputTypes.String, <span class="hljs-string">&#x27;Part1&#x27;</span>]
+]
+<span class="hljs-keyword">values</span> = Windows.OptionsDialog(<span class="hljs-string">&#x27;Enter Values&#x27;</span>, inputs)
+width, height, <span class="hljs-type">name</span> = <span class="hljs-keyword">values</span>
+</code></pre>
+<h3 id="file-dialogs">File Dialogs</h3>
+<pre><code class="language-python"><span class="hljs-comment"># Open file dialog</span>
+<span class="hljs-attr">file</span> = Windows.OpenFileDialog(<span class="hljs-string">&#x27;Select Part&#x27;</span>, <span class="hljs-string">&#x27;Part Files|*.AD_PRT&#x27;</span>)
+
+<span class="hljs-comment"># Select folder dialog</span>
+<span class="hljs-attr">folder</span> = Windows.SelectFolderDialog(<span class="hljs-string">&#x27;&#x27;</span>, <span class="hljs-string">&#x27;Select Output Folder&#x27;</span>)
+</code></pre>
+<hr>
+<h2 id="save--export">Save &amp; Export</h2>
+<h3 id="saving">Saving</h3>
+<pre><code class="language-python"><span class="hljs-selector-tag">MyPart</span><span class="hljs-selector-class">.Save</span>()
+<span class="hljs-selector-tag">MyPart</span><span class="hljs-selector-class">.Save</span>(<span class="hljs-string">&#x27;C:\\Output&#x27;</span>)
+<span class="hljs-selector-tag">MyPart</span><span class="hljs-selector-class">.SaveAs</span>(<span class="hljs-string">&#x27;C:\\Output&#x27;</span>, <span class="hljs-string">&#x27;NewName&#x27;</span>)
+</code></pre>
+<h3 id="exporting">Exporting</h3>
+<pre><code class="language-python">MyPart.<span class="hljs-constructor">ExportSTL(&#x27;C:\\Output\\<span class="hljs-params">part</span>.<span class="hljs-params">stl</span>&#x27;)</span>
+MyPart.<span class="hljs-constructor">ExportSTEP214(&#x27;C:\\Output\\<span class="hljs-params">part</span>.<span class="hljs-params">step</span>&#x27;)</span>
+MyPart.<span class="hljs-constructor">ExportIGES(&#x27;C:\\Output\\<span class="hljs-params">part</span>.<span class="hljs-params">igs</span>&#x27;)</span>
+</code></pre>
+<hr>
+<h2 id="assemblies">Assemblies</h2>
+<h3 id="creating">Creating</h3>
+<pre><code class="language-python"><span class="hljs-attr">assy</span> = Assembly(<span class="hljs-string">&#x27;MyAssembly&#x27;</span>)
+<span class="hljs-attr">assy</span> = CurrentAssembly()
+</code></pre>
+<h3 id="adding-parts">Adding Parts</h3>
+<pre><code class="language-python"><span class="hljs-attribute">part1</span> = assy.AddPart(&#x27;C:\\Parts\\Part<span class="hljs-number">1</span>.AD_PRT&#x27;, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+<span class="hljs-attribute">part2</span> = assy.AddPart(&#x27;C:\\Parts\\Part<span class="hljs-number">2</span>.AD_PRT&#x27;, <span class="hljs-number">100</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)
+</code></pre>
+<h3 id="constraints">Constraints</h3>
+<pre><code class="language-python"><span class="hljs-attribute">assy</span>.AddMateConstraint(<span class="hljs-number">0</span>, part<span class="hljs-number">1</span>, part<span class="hljs-number">1</span>.XYPlane, part<span class="hljs-number">2</span>, part<span class="hljs-number">2</span>.XYPlane)
+<span class="hljs-attribute">assy</span>.AddAlignConstraint(<span class="hljs-number">0</span>, part<span class="hljs-number">1</span>, part<span class="hljs-number">1</span>.YZPlane, part<span class="hljs-number">2</span>, part<span class="hljs-number">2</span>.YZPlane)
+</code></pre>
+
+    </section>
+  </body>
+</html>

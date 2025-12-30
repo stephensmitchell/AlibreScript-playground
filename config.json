@@ -1,0 +1,10 @@
+{
+  "appName": "AlibreScript Playground",
+  "appTitle": "AlibreScript Playground",
+  "menuLabels": {
+    "quickReference": "Quick Reference",
+    "about": "About AlibreScript Playground",
+    "clearEditor": "Clear Editor",
+    "viewExtension": "View VS Code Extension"
+  }
+}

@@ -6,11 +6,11 @@ A focused development environment for AlibreScript.
 
 Its purpose is to instantly have a code editor setup that understands AlibreScript for learning and exploring the API without requiring Alibre Design or the Alibre Script addon, especially when you need to think through an idea or need to know what method parameters are available for a function.
 
-Beta/PoC release is hosted on [CodePen](https://codepen.io/) custom domain and production deployment are planned.
+Beta/PoC release is hosted on [GitHub Pages](https://docs.github.com/en/pages) custom domain and production deployment are planned.
 
-[Beta/PoC Release](https://000719658.deployed.codepen.website)
+[Beta/PoC Release](https://stephensmitchell.github.io/AlibreScript-playground/)
 
-Beta/PoC URL -> https://000719658.deployed.codepen.website
+Beta/PoC URL -> https://stephensmitchell.github.io/AlibreScript-playground
 
 ## Known Issues/Limitations:
 - AlibreScript Playground is made with a toolkit for building playground UIs and apps. Playground toolkit is part of a broader effort in development. [CAD DDE](https://youtu.be/a0cSK_ClNW4) is a desktop implementation and AlibreScript Playground is a web implementation. Integration with a host application is required for true type inference, object model access and general communication between the editor (AlibreScript Playground) and the host (Alibre Design).
